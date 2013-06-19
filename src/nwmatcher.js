@@ -8,6 +8,10 @@
  * Version: 1.3.2beta
  * Created: 20070722
  * Release: 20130322
+
+EAP 2013/06/18 : Forking for the purpose of making it natively requirejs compatible, and
+refactoring into a pure protypal coding style.
+
  *
  * License:
  *  http://javascript.nwbox.com/NWMatcher/MIT-LICENSE
@@ -15,33 +19,12 @@
  *  http://javascript.nwbox.com/NWMatcher/nwmatcher.js
  */
 
-(function(global, factory) {
+define([], function () {
 
-  if (typeof module == 'object' && typeof exports == 'object') {
-    // in a Node.js environment, the nwmatcher functions will operate on
-    // the passed "browserGlobal" and will be returned in an object
-    module.exports = function (browserGlobal) {
-      var exports = { };
-      factory(browserGlobal, exports);
-      return exports;
-    };
-  } else {
-    // in a browser environment, the nwmatcher functions will operate on
-    // the "global" loading them and be attached to "global.NW.Dom"
-    if (!global.NW) {
-      global.NW = { };
-    }
-    if (!global.NW.Dom) {
-      global.NW.Dom = { };
-    }
-    factory(global, global.NW.Dom);
-  }
+  var version = 'nwmatcher-adapt-1.3.2beta',
 
-})(this, function(global, exports) {
-
-  var version = 'nwmatcher-1.3.2beta',
-
-  Dom = exports,
+  Dom = {},
+  global = window,
 
   // processing context & root element
   doc = global.document,
@@ -1654,5 +1637,7 @@
 
   // init context specific variables
   switchContext(doc, true);
+
+    return Dom;
 
 });
